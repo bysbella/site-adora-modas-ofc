@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>A'Dora Modas - Loja Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fontes bonitas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --rose: #b85c7f;
+      --rose-claro: #f8ecf1;
+      --preto: #222222;
+      --cinza: #777777;
+      --cinza-claro: #eeeeee;
+      --branco: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #fafafa;
+      color: var(--preto);
+      line-height: 1.4;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* CABEÇALHO */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255,255,255,0.96);
+      border-bottom: 1px solid #e5e5e5;
+      backdrop-filter: blur(6px);
+    }
+
+    .header-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo-text {
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      font-size: 0.85rem;
+    }
+
+    nav li a {
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    nav li a:hover {
+      background: var(--rose-claro);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-cart {
+      position: relative;
+      border: none;
+      background: var(--rose-claro);
+      border-radius: 999px;
+      padding: 6px 10px 6px 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      color: var(--preto);
+    }
+
+    .btn-cart span.icon {
+      font-size: 1.1rem;
+    }
+
+    .cart-badge {
+      min-width: 18px;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: var(--rose);
+      color: var(--branco);
+      font-size: 0.7rem;
+      text-align: center;
+    }
+
+    /* BANNER SUPERIOR */
+    .hero-banner {
+      background: radial-gradient(circle at top left, #fce4ef, #f7f0f4 40%, #f9f9fb 80%);
+      padding: 28px 12px 22px;
+      margin-bottom: 10px;
+    }
+
+    .hero-inner {
+      max-width: 1024px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .banner-title {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--preto);
+    }
+
+    .banner-subtitle {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 0.9rem;
+      color: var(--cinza);
+    }
+
+    /* SEÇÕES */
+    section {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 10px 10px 14px;
+    }
+
+    section h2 {
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+    }
+
+    /* FILTROS DE CATEGORIA */
+    .filtros-categorias {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .filtro-btn {
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      background: #fff;
+      cursor: pointer;
+      color: var(--preto);
+    }
+
+    .filtro-btn.ativo {
+      background: var(--rose);
+      color: var(--branco);
+      border-color: var(--rose);
+    }
+
+    /* PRODUTOS – MOBILE FIRST: 2 COLUNAS */
+    .produtos-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .produto-card {
+      background: var(--branco);
+      border-radius: 10px;
+      border: 1px solid #ededed;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .produto-img-wrapper {
+      position: relative;
+      margin-bottom: 4px;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .produto-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #f3f3f3;
+      object-fit: cover;
+      display: block;
+    }
+
+    .badge-destaque {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: rgba(184,92,127,0.92);
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      letter-spacing: 0.02em;
+    }
+
+    .produto-nome {
+      font-weight: 600;
+      font-size: 0.8rem;
+      min-height: 2.2em;
+    }
+
+    .tamanhos-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .tamanho-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      font-size: 0.7rem;
+      cursor: pointer;
+      background: #fff;
+      color: var(--preto);
+    }
+
+    .tamanho-pill.selecionado {
+      border-color: var(--rose);
+      background: var(--rose-claro);
+      color: var(--preto);
+      font-weight: 600;
+    }
+
+    .produto-tamanho-unico {
+      margin-top: 2px;
+      font-size: 0.75rem;
+      color: var(--cinza);
+      font-style: italic;
+    }
+
+    .produto-preco {
+      font-weight: 700;
+      color: var(--rose);
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .produto-estoque {
+      font-size: 0.7rem;
+      color: var(--cinza);
+    }
+
+    .produto-estoque.esgotado {
+      color: red;
+      font-weight: 600;
+    }
+
+    button.btn-add {
+      width: 100%;
+      padding: 6px;
+      border-radius: 999px;
+      border: none;
+      background: var(--rose);
+      color: var(--branco);
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    button.btn-add:disabled {
+      background: var(--cinza-claro);
+      color: var(--cinza);
+      cursor: not-allowed;
+    }
+
+    /* MODAIS GENÉRICAS */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 30;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .modal {
+      background: var(--branco);
+      border-radius: 12px;
+      max-width: 480px;
+      width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .modal-header,
+    .modal-footer {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #f0f0f0;
+      border-bottom: none;
+    }
+
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .btn-close-modal {
+      border: none;
+      background: transparent;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 10px 14px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+    }
+
+    /* MODAL PRODUTO DETALHE */
+    #produto-modal-overlay .modal {
+      max-width: 600px;
+    }
+
+    .produto-detalhe-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .produto-detalhe-imagem {
+      flex: 1 1 240px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .produto-img-detalhe {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 10px;
+      object-fit: cover;
+      aspect-ratio: 3/4;
+      background: #f3f3f3;
+    }
+
+    .produto-detalhe-info {
+      flex: 1 1 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .produto-detalhe-preco {
+      font-weight: 700;
+      color: var(--rose);
+      font-size: 1rem;
+    }
+
+    .produto-detalhe-estoque {
+      font-size: 0.85rem;
+      color: var(--cinza);
+    }
+
+    .produto-detalhe-nota {
+      font-size: 0.75rem;
+      color: var(--cinza);
+      margin-top: 4px;
+    }
+
+    /* CARRINHO NA MODAL */
+    .cart-empty {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--cinza);
+      padding: 20px 0;
+    }
+
+    .cart-item {
+      border-bottom: 1px solid #f2f2f2;
+      padding: 8px 0;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .cart-item-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .cart-item-size {
+      font-size: 0.8rem;
+      color: var(--cinza);
+    }
+
+    .cart-item-price {
+      font-size: 0.85rem;
+      color: var(--cinza);
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+
+    .btn-qty {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #f8f8f8;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-delete {
+      border: none;
+      background: transparent;
+      color: #b02b2b;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .cart-item-subtotal {
+      font-size: 0.85rem;
+      color: var(--cinza);
+    }
+
+    .total-text {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-secundario {
+      background: var(--cinza-claro);
+      border: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--preto);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--rose);
+      color: var(--branco);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--rose);
+      border: 1px solid var(--rose);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    /* FORMULÁRIO DE ENTREGA */
+    .card {
+      background: var(--branco);
+      border-radius: 10px;
+      border: 1px solid #ededed;
+      padding: 12px;
+      font-size: 0.9rem;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    form label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #dddddd;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    form textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .obs-text {
+      font-size: 0.75rem;
+      color: var(--cinza);
+      margin-bottom: 8px;
+    }
+
+    /* RODAPÉ / CONTATO FINAL */
+    footer {
+      border-top: 1px solid #e5e5e5;
+      padding: 14px 16px 18px;
+      font-size: 0.8rem;
+      color: var(--cinza);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .footer-contact,
+    .footer-pay {
+      margin-top: 6px;
+    }
+
+    .footer-contact p,
+    .footer-pay p {
+      margin: 2px 0;
+    }
+
+    .footer-bot {
+      margin-top: 8px;
+      font-size: 0.78rem;
+    }
+
+    .footer-contact a {
+      color: var(--rose);
+      font-weight: 600;
+    }
+
+    /* MODAL CONTATO MENOR */
+    #contato-modal-overlay .modal {
+      max-width: 360px;
+    }
+
+    .contato-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .contato-links small {
+      font-size: 0.75rem;
+      color: var(--cinza);
+    }
+
+    /* TELAS MAIORES */
+    @media (min-width: 768px) {
+      .banner-title {
+        font-size: 2.2rem;
+      }
+
+      .produtos-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .produto-nome {
+        font-size: 0.9rem;
+      }
+
+      .header-inner {
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-banner {
+        padding-top: 22px;
+        padding-bottom: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-text">A'Dora Modas</div>
+      <nav>
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <button class="btn-cart" id="cartButton">
+          <span class="icon">🛒</span>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER TOPO -->
+  <section class="hero-banner">
+    <div class="hero-inner">
+      <h1 class="banner-title">A'Dora Modas</h1>
+      <p class="banner-subtitle">
+        Cada detalhe pensado especialmente em mulheres que amam se sentir únicas,
+        com looks que valorizam sua essência.
+      </p>
+    </div>
+  </section>
+
+  <!-- PRODUTOS -->
+  <section id="produtos">
+    <h2>Produtos</h2>
+
+    <!-- FILTROS -->
+    <div class="filtros-categorias">
+      <button class="filtro-btn ativo" data-categoria="Todos" onclick="setFiltroCategoria('Todos')">Todos</button>
+      <button class="filtro-btn" data-categoria="Vestidos" onclick="setFiltroCategoria('Vestidos')">Vestidos</button>
+      <button class="filtro-btn" data-categoria="Saias" onclick="setFiltroCategoria('Saias')">Saias</button>
+      <button class="filtro-btn" data-categoria="Conjuntos" onclick="setFiltroCategoria('Conjuntos')">Conjuntos</button>
+      <button class="filtro-btn" data-categoria="Camisetas" onclick="setFiltroCategoria('Camisetas')">Camisetas</button>
+      <button class="filtro-btn" data-categoria="Blusas" onclick="setFiltroCategoria('Blusas')">Blusas</button>
+    </div>
+
+    <div class="produtos-grid" id="lista-produtos">
+      <!-- Produtos via JavaScript -->
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO DE ENTREGA -->
+  <section id="dados-entrega" style="display:none;">
+    <div class="card">
+      <h3>Dados para entrega</h3>
+      <p class="obs-text">
+        Revisei meu carrinho e agora quero finalizar o pedido.
+        Preencha seus dados e clique em <strong>Enviar pedido no WhatsApp</strong>.
+      </p>
+      <form onsubmit="finalizarPedido(event)">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" required>
+
+        <label for="telefone">Telefone / WhatsApp</label>
+        <input type="text" id="telefone" placeholder="(45) 9 9927-9284" required>
+
+        <label for="cidade">Cidade</label>
+        <input type="text" id="cidade" placeholder="Ex: Toledo-PR" required>
+
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" required>
+
+        <label for="endereco">Rua, número, complemento</label>
+        <input type="text" id="endereco" required>
+
+        <label for="referencia">Ponto de referência (opcional)</label>
+        <input type="text" id="referencia" placeholder="Próximo a...">
+
+        <label for="obs">Observações (tamanho, horário, etc.)</label>
+        <textarea id="obs" placeholder="Ex: Prefiro entrega à noite."></textarea>
+
+        <button type="submit" class="btn-primary" style="width:100%; margin-top:4px;">
+          Enviar pedido no WhatsApp
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- RODAPÉ / CONTATO FINAL -->
+  <footer id="contato">
+    <p>A'Dora Modas • Toledo - PR</p>
+    <p>Atendimento pelo WhatsApp e entregas no conforto da sua casa 💗</p>
+
+    <div class="footer-contact">
+      <p>📲 WhatsApp:
+        <a href="https://wa.me/5545999279284" target="_blank">
+          (45) 9 9927-9284
+        </a>
+      </p>
+      <p>📸 Instagram:
+        <a href="https://instagram.com/a_dora_modas" target="_blank">
+          @a_dora_modas
+        </a>
+      </p>
+    </div>
+
+    <div class="footer-pay">
+      <p>💳 Formas de pagamento: PIX, cartão e dinheiro.</p>
+      <p>📌 Parcelamos suas compras no cartão (detalhes combinamos pelo WhatsApp).</p>
+    </div>
+
+    <p class="footer-bot">
+      🤖 Um robôzinho vai finalizar seu atendimento pelo WhatsApp, deixando seu pedido certinho e organizado.
+    </p>
+  </footer>
+
+  <!-- MODAL DO CARRINHO -->
+  <div class="modal-overlay hidden" id="cart-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Seu carrinho</span>
+        <button class="btn-close-modal" onclick="fecharCarrinho()">×</button>
+      </div>
+      <div class="modal-body" id="cart-modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secundario" onclick="limparCarrinho()">Limpar carrinho</button>
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+          <span id="cart-modal-total" class="total-text">Total: R$ 0,00</span>
+          <button class="btn-primary" onclick="mostrarFormulario()">Finalizar pedido</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALHE DO PRODUTO -->
+  <div class="modal-overlay hidden" id="produto-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="produto-modal-titulo"></span>
+        <button class="btn-close-modal" onclick="fecharProdutoDetalhe()">×</button>
+      </div>
+      <div class="modal-body" id="produto-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CONTATO -->
+  <div class="modal-overlay hidden" id="contato-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Entre em contato</span>
+        <button class="btn-close-modal" onclick="fecharContato()">×</button>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        <p style="margin-bottom: 12px; font-size:0.9rem; color:#555;">
+          Escolha uma das opções abaixo:
+        </p>
+
+        <div class="contato-links">
+          <button class="btn-primary" style="width:100%;" onclick="abrirWhatsApp()">
+            💬 Chamar no WhatsApp
+          </button>
+
+          <a href="https://instagram.com/a_dora_modas" target="_blank" style="text-decoration:none;">
+            <button type="button" class="btn-outline" style="width:100%;">
+              📸 Visitar Instagram
+            </button>
+          </a>
+
+          <small>Salve nossos contatos para pedidos sempre que quiser 💕</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===========================
+    // CONFIGURAÇÕES
+    // ===========================
+    const NUMERO_WHATSAPP = "5545999279284";
+    const STORAGE_CART_KEY = "adora_carrinho";
+    const STORAGE_CLIENTE_KEY = "adora_cliente";
+    let filtroCategoria = "Todos";
+
+    const produtos = [
+      {
+        id: 1,
+        nome: "Vestido longo de alcinha, estampado, com saia em camadas",
+        preco: 129.90,
+        estoque: 1,
+        categoria: "Vestidos",
+        destaque: "mais-vendido",
+        tamanhos: ["M"],
+        imagens: [
+          "Vestido longo de alcinha, estampado, com saia em camadas.png",
+          "Vestido longo de alcinha, estampado, com saia em camadas.png"
+        ]
+      },
+      {
+        id: 2,
+        nome: "Mix vestido floral laranja com decote em V",
+        preco: 169.90,
+        estoque: 1,
+        categoria: "Vestidos",
+        destaque: "novo",
+        tamanhos: ["M"],
+        imagens: [
+          "Mix vestido floral laranja, decote em V.png",
+          "Mix vestido floral laranja, decote em V.png"
+        ]
+      },
+      {
+        id: 3,
+        nome: "Macacão pantalona preto e nude com estampa geométrica abstrata",
+        preco: 149.90,
+        estoque: 1,
+        categoria: "Conjuntos",
+        destaque: "",
+        tamanhos: ["G"],
+        imagens: [
+          "Macacão pantalona preto e nude com estampa geométricaabstrata.png",
+          "Macacão pantalona preto e nude com estampa geométricaabstrata.png"
+        ]
+      },
+      {
+        id: 4,
+        nome: "Vestido longo terracota-laranja com bordado floral na manga",
+        preco: 139.90,
+        estoque: 1,
+        categoria: "Vestidos",
+        destaque: "novo",
+        tamanhos: ["Tamanho único"],
+        imagens: [
+          "Vestido longo terracota-laranja com bordado floral na manga.jpeg",
+          "Vestido longo terracota-laranja com bordado floral na manga.jpeg"
+        ]
+      },
+      {
+        id: 5,
+        nome: "Vestido maxi branco, com estampa azul-marinho e cut-out lateral",
+        preco: 149.90,
+        estoque: 1,
+        categoria: "Vestidos",
+        destaque: "mais-vendido",
+        tamanhos: ["Tamanho único"],
+        imagens: [
+          "Vestido maxi branco, com estampa azul-marinho e cut-out lateral.png",
+          "Vestido maxi branco, com estampa azul-marinho e cut-out lateral.png"
+        ]
+      },
+      {
+        id: 6,
+        nome: "Vestido branco e azul floral, decote em V e de alcinhas",
+        preco: 89.90,
+        estoque: 1,
+        categoria: "Vestidos",
+        destaque: "mais-vendido",
+        tamanhos: ["Tamanho único"],
+        imagens: [
+          "Vestido branco e azul floral, decote em V e de alcinhas.png",
+          "Vestido branco e azul floral, decote em V e de alcinhas.png"
+        ]
+      }
+      // Depois você pode adicionar Saias, Camisetas, Blusas usando as categorias "Saias", "Camisetas", "Blusas"
+    ];
+
+    let carrinho = [];
+    const tamanhoSelecionado = {};
+
+    // ===========================
+    // LOCALSTORAGE: CARRINHO
+    // ===========================
+    function salvarCarrinho() {
+      localStorage.setItem(STORAGE_CART_KEY, JSON.stringify(carrinho));
+    }
+
+    function carregarCarrinho() {
+      const dados = localStorage.getItem(STORAGE_CART_KEY);
+      if (!dados) return;
+      try {
+        const parsed = JSON.parse(dados);
+        if (Array.isArray(parsed)) {
+          carrinho = parsed.filter(item =>
+            item &&
+            typeof item.idProduto === "number" &&
+            typeof item.quantidade === "number" &&
+            typeof item.tamanho === "string"
+          );
+        }
+      } catch (e) {
+        console.warn("Erro ao carregar carrinho:", e);
+      }
+    }
+
+    // ===========================
+    // LOCALSTORAGE: DADOS CLIENTE
+    // ===========================
+    function salvarDadosCliente() {
+      const dados = {
+        nome: document.getElementById("nome").value.trim(),
+        telefone: document.getElementById("telefone").value.trim(),
+        cidade: document.getElementById("cidade").value.trim(),
+        bairro: document.getElementById("bairro").value.trim(),
+        endereco: document.getElementById("endereco").value.trim(),
+        referencia: document.getElementById("referencia").value.trim(),
+        obs: document.getElementById("obs").value.trim()
+      };
+      localStorage.setItem(STORAGE_CLIENTE_KEY, JSON.stringify(dados));
+    }
+
+    function carregarDadosCliente() {
+      const dados = localStorage.getItem(STORAGE_CLIENTE_KEY);
+      if (!dados) return;
+      try {
+        const c = JSON.parse(dados);
+        if (!c || typeof c !== "object") return;
+        if (c.nome) document.getElementById("nome").value = c.nome;
+        if (c.telefone) document.getElementById("telefone").value = c.telefone;
+        if (c.cidade) document.getElementById("cidade").value = c.cidade;
+        if (c.bairro) document.getElementById("bairro").value = c.bairro;
+        if (c.endereco) document.getElementById("endereco").value = c.endereco;
+        if (c.referencia) document.getElementById("referencia").value = c.referencia;
+        if (c.obs) document.getElementById("obs").value = c.obs;
+      } catch (e) {
+        console.warn("Erro ao carregar dados do cliente:", e);
+      }
+    }
+
+    function adicionarListenersAutoSaveCliente() {
+      const ids = ["nome","telefone","cidade","bairro","endereco","referencia","obs"];
+      ids.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("input", salvarDadosCliente);
+      });
+    }
+
+    // ===========================
+    // FILTRO DE CATEGORIA
+    // ===========================
+    function setFiltroCategoria(categoria) {
+      filtroCategoria = categoria;
+      document.querySelectorAll(".filtro-btn").forEach(btn => {
+        const cat = btn.getAttribute("data-categoria");
+        btn.classList.toggle("ativo", cat === categoria);
+      });
+      atualizarTela();
+    }
+
+    // ===========================
+    // FUNÇÕES AUXILIARES
+    // ===========================
+    function formatarPreco(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function getQuantidadeNoCarrinho(idProduto) {
+      return carrinho
+        .filter((i) => i.idProduto === idProduto)
+        .reduce((soma, i) => soma + i.quantidade, 0);
+    }
+
+    function atualizarContadorCarrinho() {
+      const total = carrinho.reduce((soma, item) => soma + item.quantidade, 0);
+      document.getElementById("cart-count").textContent = total;
+    }
+
+    function getTextoDestaque(d) {
+      if (d === "mais-vendido") return "Mais vendido 💖";
+      if (d === "novo") return "Novo ✨";
+      return "";
+    }
+
+    // ===========================
+    // RENDERIZAR PRODUTOS
+    // ===========================
+    function renderizarProdutos() {
+      const container = document.getElementById("lista-produtos");
+      container.innerHTML = "";
+
+      const listaFiltrada = produtos.filter(p =>
+        filtroCategoria === "Todos" || p.categoria === filtroCategoria
+      );
+
+      listaFiltrada.forEach((produto) => {
+        const card = document.createElement("div");
+        card.className = "produto-card";
+
+        const wrapperImg = document.createElement("div");
+        wrapperImg.className = "produto-img-wrapper";
+        wrapperImg.onclick = () => abrirProdutoDetalhe(produto.id);
+
+        const img = document.createElement("img");
+        img.className = "produto-img";
+        img.src = produto.imagens[0] || "";
+        img.alt = produto.nome;
+
+        const textoDestaque = getTextoDestaque(produto.destaque);
+        if (textoDestaque) {
+          const badge = document.createElement("div");
+          badge.className = "badge-destaque";
+          badge.textContent = textoDestaque;
+          wrapperImg.appendChild(badge);
+        }
+
+        wrapperImg.appendChild(img);
+
+        const nome = document.createElement("div");
+        nome.className = "produto-nome";
+        nome.textContent = produto.nome;
+
+        let containerTamanhos = null;
+        if (produto.tamanhos && produto.tamanhos.length > 0) {
+          if (produto.tamanhos.length === 1 &&
+              produto.tamanhos[0].toLowerCase().includes("tamanho único")) {
+            const tamUnico = document.createElement("div");
+            tamUnico.className = "produto-tamanho-unico";
+            tamUnico.textContent = "Tamanho único";
+            containerTamanhos = tamUnico;
+          } else {
+            const divTam = document.createElement("div");
+            divTam.className = "tamanhos-container";
+            const selecionado = tamanhoSelecionado[produto.id] || null;
+
+            produto.tamanhos.forEach((t) => {
+              const pill = document.createElement("button");
+              pill.type = "button";
+              pill.className = "tamanho-pill";
+              pill.textContent = t;
+              if (selecionado === t) pill.classList.add("selecionado");
+
+              pill.onclick = () => {
+                tamanhoSelecionado[produto.id] = t;
+                divTam.querySelectorAll(".tamanho-pill").forEach(p2 => {
+                  p2.classList.remove("selecionado");
+                });
+                pill.classList.add("selecionado");
+              };
+
+              divTam.appendChild(pill);
+            });
+
+            containerTamanhos = divTam;
+          }
+        }
+
+        const preco = document.createElement("div");
+        preco.className = "produto-preco";
+        preco.textContent = formatarPreco(produto.preco);
+
+        const estoque = document.createElement("div");
+        estoque.className = "produto-estoque";
+
+        const qtdNoCarrinho = getQuantidadeNoCarrinho(produto.id);
+        const restante = produto.estoque - qtdNoCarrinho;
+
+        if (restante > 0) {
+          estoque.textContent = `Estoque: ${restante} unidade(s)`;
+        } else {
+          estoque.textContent = "ESGOTADO";
+          estoque.classList.add("esgotado");
+        }
+
+        const botao = document.createElement("button");
+        botao.className = "btn-add";
+        botao.textContent = restante > 0 ? "Adicionar ao carrinho" : "Esgotado";
+        botao.disabled = restante <= 0;
+        botao.onclick = () => {
+          let tamanhoEscolhido = "Tamanho único";
+          if (produto.tamanhos && produto.tamanhos.length > 0) {
+            if (!(produto.tamanhos.length === 1 &&
+                  produto.tamanhos[0].toLowerCase().includes("tamanho único"))) {
+              const tSel = tamanhoSelecionado[produto.id];
+              if (!tSel) {
+                alert("Por favor, selecione o tamanho antes de adicionar ao carrinho.");
+                return;
+              }
+              tamanhoEscolhido = tSel;
+            } else {
+              tamanhoEscolhido = produto.tamanhos[0];
+            }
+          }
+          adicionarAoCarrinho(produto.id, tamanhoEscolhido);
+        };
+
+        card.appendChild(wrapperImg);
+        card.appendChild(nome);
+        if (containerTamanhos) card.appendChild(containerTamanhos);
+        card.appendChild(preco);
+        card.appendChild(estoque);
+        card.appendChild(botao);
+
+        container.appendChild(card);
+      });
+    }
+
+    // ===========================
+    // MODAL DETALHE DO PRODUTO
+    // ===========================
+    function abrirProdutoDetalhe(idProduto) {
+      const produto = produtos.find(p => p.id === idProduto);
+      if (!produto) return;
+
+      const overlay = document.getElementById("produto-modal-overlay");
+      const titulo = document.getElementById("produto-modal-titulo");
+      const body = document.getElementById("produto-modal-body");
+
+      const qtdNoCarrinho = getQuantidadeNoCarrinho(produto.id);
+      const restante = produto.estoque - qtdNoCarrinho;
+
+      titulo.textContent = produto.nome;
+      body.innerHTML = "";
+
+      const layout = document.createElement("div");
+      layout.className = "produto-detalhe-layout";
+
+      const colImg = document.createElement("div");
+      colImg.className = "produto-detalhe-imagem";
+      const img = document.createElement("img");
+      img.className = "produto-img-detalhe";
+      img.src = produto.imagens[0] || "";
+      img.alt = produto.nome;
+      colImg.appendChild(img);
+
+      const colInfo = document.createElement("div");
+      colInfo.className = "produto-detalhe-info";
+
+      const preco = document.createElement("div");
+      preco.className = "produto-detalhe-preco";
+      preco.textContent = formatarPreco(produto.preco);
+
+      const estoque = document.createElement("div");
+      estoque.className = "produto-detalhe-estoque";
+      estoque.textContent = restante > 0
+        ? `Estoque: ${restante} unidade(s)`
+        : "ESGOTADO";
+
+      colInfo.appendChild(preco);
+      colInfo.appendChild(estoque);
+
+      // tamanhos no modal
+      if (produto.tamanhos && produto.tamanhos.length > 0) {
+        if (produto.tamanhos.length === 1 &&
+            produto.tamanhos[0].toLowerCase().includes("tamanho único")) {
+          const tamUnico = document.createElement("div");
+          tamUnico.className = "produto-tamanho-unico";
+          tamUnico.textContent = "Tamanho único";
+          colInfo.appendChild(tamUnico);
+        } else {
+          const labelTam = document.createElement("div");
+          labelTam.style.fontSize = "0.75rem";
+          labelTam.style.marginTop = "4px";
+          labelTam.textContent = "Selecione o tamanho:";
+          colInfo.appendChild(labelTam);
+
+          const divTam = document.createElement("div");
+          divTam.className = "tamanhos-container";
+          const selecionado = tamanhoSelecionado[produto.id] || null;
+
+          produto.tamanhos.forEach((t) => {
+            const pill = document.createElement("button");
+            pill.type = "button";
+            pill.className = "tamanho-pill";
+            pill.textContent = t;
+            if (selecionado === t) pill.classList.add("selecionado");
+
+            pill.onclick = () => {
+              tamanhoSelecionado[produto.id] = t;
+              divTam.querySelectorAll(".tamanho-pill").forEach(p2 => {
+                p2.classList.remove("selecionado");
+              });
+              pill.classList.add("selecionado");
+            };
+
+            divTam.appendChild(pill);
+          });
+
+          colInfo.appendChild(divTam);
+        }
+      }
+
+      const btnAdd = document.createElement("button");
+      btnAdd.className = "btn-primary";
+      btnAdd.style.marginTop = "8px";
+      btnAdd.textContent = restante > 0 ? "Adicionar ao carrinho" : "Esgotado";
+      btnAdd.disabled = restante <= 0;
+      btnAdd.onclick = () => {
+        let tamanhoEscolhido = "Tamanho único";
+        if (produto.tamanhos && produto.tamanhos.length > 0) {
+          if (!(produto.tamanhos.length === 1 &&
+                produto.tamanhos[0].toLowerCase().includes("tamanho único"))) {
+            const tSel = tamanhoSelecionado[produto.id];
+            if (!tSel) {
+              alert("Por favor, selecione o tamanho antes de adicionar ao carrinho.");
+              return;
+            }
+            tamanhoEscolhido = tSel;
+          } else {
+            tamanhoEscolhido = produto.tamanhos[0];
+          }
+        }
+        adicionarAoCarrinho(produto.id, tamanhoEscolhido);
+      };
+
+      colInfo.appendChild(btnAdd);
+
+      const nota = document.createElement("div");
+      nota.className = "produto-detalhe-nota";
+      nota.textContent = "Você pode revisar os itens no carrinho antes de finalizar o pedido.";
+      colInfo.appendChild(nota);
+
+      layout.appendChild(colImg);
+      layout.appendChild(colInfo);
+
+      body.appendChild(layout);
+
+      overlay.classList.remove("hidden");
+    }
+
+    function fecharProdutoDetalhe() {
+      document.getElementById("produto-modal-overlay").classList.add("hidden");
+    }
+
+    document.getElementById("produto-modal-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "produto-modal-overlay") {
+        fecharProdutoDetalhe();
+      }
+    });
+
+    // ===========================
+    // CARRINHO
+    // ===========================
+    function adicionarAoCarrinho(idProduto, tamanho) {
+      const produto = produtos.find((p) => p.id === idProduto);
+      if (!produto) return;
+
+      const qtdAtual = getQuantidadeNoCarrinho(idProduto);
+      if (qtdAtual >= produto.estoque) {
+        alert("Não há mais estoque deste produto.");
+        return;
+      }
+
+      const itemExistente = carrinho.find(
+        (item) => item.idProduto === idProduto && item.tamanho === tamanho
+      );
+
+      if (itemExistente) {
+        itemExistente.quantidade += 1;
+      } else {
+        carrinho.push({ idProduto, tamanho, quantidade: 1 });
+      }
+
+      salvarCarrinho();
+      atualizarTela();
+    }
+
+    function aumentarQuantidade(idProduto, tamanho) {
+      const produto = produtos.find((p) => p.id === idProduto);
+      if (!produto) return;
+
+      const item = carrinho.find(
+        (i) => i.idProduto === idProduto && i.tamanho === tamanho
+      );
+      if (!item) return;
+
+      const qtdAtualProduto = getQuantidadeNoCarrinho(idProduto);
+      if (qtdAtualProduto >= produto.estoque) {
+        alert("Não há mais estoque disponível para este produto.");
+        return;
+      }
+
+      item.quantidade += 1;
+      salvarCarrinho();
+      atualizarTela();
+    }
+
+    function diminuirQuantidade(idProduto, tamanho) {
+      const item = carrinho.find(
+        (i) => i.idProduto === idProduto && i.tamanho === tamanho
+      );
+      if (!item) return;
+
+      if (item.quantidade > 1) {
+        item.quantidade -= 1;
+      } else {
+        carrinho = carrinho.filter(
+          (i) => !(i.idProduto === idProduto && i.tamanho === tamanho)
+        );
+      }
+      salvarCarrinho();
+      atualizarTela();
+    }
+
+    function removerItem(idProduto, tamanho) {
+      carrinho = carrinho.filter(
+        (i) => !(i.idProduto === idProduto && i.tamanho === tamanho)
+      );
+      salvarCarrinho();
+      atualizarTela();
+    }
+
+    function limparCarrinho() {
+      if (carrinho.length === 0) {
+        alert("Seu carrinho já está vazio.");
+        return;
+      }
+      if (!confirm("Deseja realmente limpar o carrinho?")) return;
+      carrinho = [];
+      salvarCarrinho();
+      atualizarTela();
+    }
+
+    function renderizarCarrinhoModal() {
+      const corpo = document.getElementById("cart-modal-body");
+      const totalEl = document.getElementById("cart-modal-total");
+      corpo.innerHTML = "";
+
+      if (carrinho.length === 0) {
+        corpo.innerHTML = '<div class="cart-empty">Seu carrinho está vazio.</div>';
+        totalEl.textContent = "Total: R$ 0,00";
+        return;
+      }
+
+      let total = 0;
+
+      carrinho.forEach((item) => {
+        const produto = produtos.find((p) => p.id === item.idProduto);
+        if (!produto) return;
+
+        const subtotal = produto.preco * item.quantidade;
+        total += subtotal;
+
+        const divItem = document.createElement("div");
+        divItem.className = "cart-item";
+
+        const top = document.createElement("div");
+        top.className = "cart-item-top";
+
+        const nome = document.createElement("div");
+        nome.className = "cart-item-name";
+        nome.textContent = produto.nome;
+
+        const preco = document.createElement("div");
+        preco.className = "cart-item-price";
+        preco.textContent = formatarPreco(produto.preco) + " un.";
+
+        top.appendChild(nome);
+        top.appendChild(preco);
+
+        const sizeDiv = document.createElement("div");
+        sizeDiv.className = "cart-item-size";
+        sizeDiv.textContent = "Tamanho: " + item.tamanho;
+
+        const actions = document.createElement("div");
+        actions.className = "cart-item-actions";
+
+        const qtyControls = document.createElement("div");
+        qtyControls.className = "qty-controls";
+
+        const btnMenos = document.createElement("button");
+        btnMenos.type = "button";
+        btnMenos.className = "btn-qty";
+        btnMenos.textContent = "-";
+        btnMenos.onclick = () => diminuirQuantidade(produto.id, item.tamanho);
+
+        const spanQtd = document.createElement("span");
+        spanQtd.textContent = item.quantidade;
+
+        const btnMais = document.createElement("button");
+        btnMais.type = "button";
+        btnMais.className = "btn-qty";
+        btnMais.textContent = "+";
+        btnMais.onclick = () => aumentarQuantidade(produto.id, item.tamanho);
+
+        qtyControls.appendChild(btnMenos);
+        qtyControls.appendChild(spanQtd);
+        qtyControls.appendChild(btnMais);
+
+        const btnTrash = document.createElement("button");
+        btnTrash.type = "button";
+        btnTrash.className = "btn-delete";
+        btnTrash.textContent = "🗑️";
+        btnTrash.onclick = () => removerItem(produto.id, item.tamanho);
+
+        actions.appendChild(qtyControls);
+        actions.appendChild(btnTrash);
+
+        const subtotalDiv = document.createElement("div");
+        subtotalDiv.className = "cart-item-subtotal";
+        subtotalDiv.textContent = "Subtotal: " + formatarPreco(subtotal);
+
+        divItem.appendChild(top);
+        divItem.appendChild(sizeDiv);
+        divItem.appendChild(actions);
+        divItem.appendChild(subtotalDiv);
+
+        corpo.appendChild(divItem);
+      });
+
+      totalEl.textContent = "Total: " + formatarPreco(total);
+    }
+
+    // ===========================
+    // MODAIS: CARRINHO & CONTATO
+    // ===========================
+    function abrirCarrinho() {
+      document.getElementById("cart-modal-overlay").classList.remove("hidden");
+    }
+
+    function fecharCarrinho() {
+      document.getElementById("cart-modal-overlay").classList.add("hidden");
+    }
+
+    document.getElementById("cart-modal-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "cart-modal-overlay") {
+        fecharCarrinho();
+      }
+    });
+
+    document.getElementById("cartButton").addEventListener("click", () => {
+      renderizarCarrinhoModal();
+      abrirCarrinho();
+    });
+
+    function abrirContato() {
+      document.getElementById("contato-modal-overlay").classList.remove("hidden");
+    }
+
+    function fecharContato() {
+      document.getElementById("contato-modal-overlay").classList.add("hidden");
+    }
+
+    document.getElementById("contato-modal-overlay").addEventListener("click", (e) => {
+      if (e.target.id === "contato-modal-overlay") {
+        fecharContato();
+      }
+    });
+
+    function abrirWhatsApp() {
+      window.open(`https://wa.me/${NUMERO_WHATSAPP}`, "_blank");
+    }
+
+    // ===========================
+    // FORMULÁRIO / FINALIZAR PEDIDO
+    // ===========================
+    function mostrarFormulario() {
+      if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio. Adicione algum produto antes de finalizar.");
+        return;
+      }
+      fecharCarrinho();
+      const sec = document.getElementById("dados-entrega");
+      sec.style.display = "block";
+      carregarDadosCliente();
+      sec.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function finalizarPedido(event) {
+      event.preventDefault();
+
+      if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio. Adicione algum produto antes de finalizar.");
+        return;
+      }
+
+      const nome = document.getElementById("nome").value.trim();
+      const telefone = document.getElementById("telefone").value.trim();
+      const cidade = document.getElementById("cidade").value.trim();
+      const bairro = document.getElementById("bairro").value.trim();
+      const endereco = document.getElementById("endereco").value.trim();
+      const referencia = document.getElementById("referencia").value.trim();
+      const obs = document.getElementById("obs").value.trim();
+
+      if (!nome || !telefone || !cidade || !bairro || !endereco) {
+        alert("Preencha todos os campos obrigatórios (Nome, Telefone, Cidade, Bairro, Endereço).");
+        return;
+      }
+
+      salvarDadosCliente();
+
+      let textoItens = "";
+      let total = 0;
+
+      carrinho.forEach((item) => {
+        const produto = produtos.find((p) => p.id === item.idProduto);
+        if (!produto) return;
+        const subtotal = produto.preco * item.quantidade;
+        total += subtotal;
+        textoItens += `- ${item.quantidade}x ${produto.nome} (Tam: ${item.tamanho}) (${formatarPreco(produto.preco)} cada) = ${formatarPreco(subtotal)}\n`;
+      });
+
+      const cidadeLower = cidade.toLowerCase();
+      const freteGratisToledo = cidadeLower.includes("toledo");
+      let freteTexto = freteGratisToledo
+        ? "Frete: GRÁTIS para Toledo-PR ✅"
+        : "Frete: a combinar pelo WhatsApp.";
+
+      let referenciaTexto = referencia ? `\nPonto de referência: ${referencia}` : "";
+      let obsTexto = obs ? `\nObservações: ${obs}` : "";
+
+      const mensagem =
+        `Olá, gostaria de fazer um pedido 🛍️\n\n` +
+        `*Itens:*\n` +
+        textoItens +
+        `\n*Total em produtos:* ${formatarPreco(total)}\n` +
+        `${freteTexto}\n\n` +
+        `*Dados para entrega:*\n` +
+        `Nome: ${nome}\n` +
+        `Telefone: ${telefone}\n` +
+        `Cidade: ${cidade}\n` +
+        `Bairro: ${bairro}\n` +
+        `Endereço: ${endereco}` +
+        referenciaTexto +
+        obsTexto +
+        `\n\nRastreio: será enviado manualmente via WhatsApp após o envio.\n` +
+        `Um robôzinho da A'Dora Modas vai te ajudar a finalizar tudo por aqui 🤖✨`;
+
+      const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+
+    // ===========================
+    // ATUALIZAR TELA / INIT
+    // ===========================
+    function atualizarTela() {
+      renderizarProdutos();
+      renderizarCarrinhoModal();
+      atualizarContadorCarrinho();
+    }
+
+    carregarCarrinho();
+    atualizarTela();
+    adicionarListenersAutoSaveCliente();
+  </script>
+</body>
+</html>
